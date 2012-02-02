@@ -1,4 +1,6 @@
 RailsinstallerDemo::Application.routes.draw do
+  resources :links
+
   get "welcome/index"
   get "welcome/test"
 
