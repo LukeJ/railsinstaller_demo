@@ -1,0 +1,29 @@
+<p>
+  <a href="<%= @link.url %>">
+    <img src="http://api.thumbalizr.com/?url=<%= @link.url %>&width=250" border="1">
+  </a>
+</p>
+
+<p>
+  <b>Url:</b>
+  <a href="<%= @link.url %>"><%= @link.url %></a>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @link.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @link.description %>
+</p>
+
+<p>
+  <b>Last Updated:</b>
+  <%= @link.updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>

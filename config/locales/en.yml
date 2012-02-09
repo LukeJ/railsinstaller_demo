@@ -3,3 +3,13 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      user:
+        email: "E-mail address"
+        username: "User name"
+      link:
+        url: "Web page url"
+        title: "Web page title"
+        description: "Web page description"

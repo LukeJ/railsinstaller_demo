@@ -1,0 +1,46 @@
+<h1>Listing Links</h1>
+
+<% if current_user != nil %>
+  <% if @links.size != 0 %>
+    <table>
+      <tr>
+        <th>Link</th>
+        <th>Description</th>
+        <th>Last Updated</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    
+    <% @links.each do |link| %>
+
+      <tr>
+        <td>
+          <a href="<%= link.url %>" ><%= link.title %></a>
+          <br>
+          <a href="<%= link.url %>">
+            <img src="http://api.thumbalizr.com/?url=<%= link.url %>&width=125" border="1">
+          </a>
+        </td>
+        <td><%= link.description %></td>
+        <td><%= link.updated_at %></td>
+        <td><%= link_to 'Show', link %></td>
+        <td><%= link_to 'Edit', edit_link_path(link) %></td>
+        <td><%= button_to 'Destroy', link, confirm: 'Are you sure you want to delete this link?', method: :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% else%>
+    <h3>You currently don't have any links.</h3>
+  <% end %>
+ 
+  <br />
+
+<%= link_to 'New Link', new_link_path %>
+
+<% else%>
+  <h3>You are not logged in. Please Login or Register.</h3>
+<% end %>
+
+  
+

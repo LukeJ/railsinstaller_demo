@@ -1,0 +1,18 @@
+--- 
+open_files: 
+  - config/routes.rb
+  - app/views/layouts/application.html.erb
+  - app/controllers/application_controller.rb
+  - app/views/welcome/index.html.erb
+  - app/controllers/user_sessions_controller.rb
+  - app/controllers/users_controller.rb
+  - app/models/user.rb
+  - app/models/link.rb
+  - app/controllers/links_controller.rb
+  - app/views/links/new.html.erb
+  - app/views/links/_form.html.erb
+  - app/views/links/edit.html.erb
+  - app/views/links/index.html.erb
+  - db/schema.rb
+  - app/views/links/show.html.erb
+  - app/helpers/links_helper.rb
