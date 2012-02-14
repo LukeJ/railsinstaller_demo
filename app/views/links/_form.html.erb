@@ -1,5 +1,58 @@
 <%= form_for(@link) do |f| %>
-  <% if @link.errors.any? %>
+
+    <script>
+        function fetchInfo()
+        {
+             $('#titletextfield').val("");
+             $('#descriptiontextfield').val("");
+             readMetaData();
+        }
+        function readMetaData()
+        {
+             var url = $('#urltextfield').val();
+
+             var queryURL = encodeURIComponent(url);
+
+            //select content from html where url="http://www.konradgroup.com" and xpath="//title"
+            var titleQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20content%20from%20html%20where%20url%3D%22"+queryURL+"%22%20and%20xpath%3D%22%2F%2Ftitle%22%20&format=json&diagnostics=true&callback=";
+            var response_title = $.getJSON(titleQuery, function(json) {
+                var titleTextField = $('#titletextfield');
+
+                if(titleTextField.val() == "")
+                {
+                    titleTextField.val(json.query.results.title);
+                }
+                //alert(json.query.results.title);
+             });
+
+            //select content from html where url="http://www.konradgroup.com" and xpath="//head/meta[@name='description']"
+            var descriptionQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20content%20from%20html%20where%20url%3D%22"+queryURL+"%22%20and%20xpath%3D%22%2F%2Fhead%2Fmeta%5B%40name%3D'description'%5D%22%20&format=json&diagnostics=true&callback=";
+            var response_description = $.getJSON(descriptionQuery, function(json) {
+                var descriptionTextField = $('#descriptiontextfield');
+
+                if(descriptionTextField.val() == "")
+                {
+                    descriptionTextField.val(json.query.results.meta.content);
+                }
+                //alert(json.query.results.meta.content);
+             });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function metaKeywords() {
+            metaCollection = document.getElementsByTagName('meta');
+
+            for (i=0;i<metaCollection.length;i++) {
+                nameAttribute = metaCollection[i].name.search(/keywords/);
+                if (nameAttribute!= -1) {
+                    alert(metaCollection[i].content);
+                }
+            }
+        }
+    </script>
+
+    <% if @link.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
 
@@ -13,15 +66,16 @@
 
   <div class="field">
     <%= f.label :url %><br />
-    <%= f.text_field :url %>
+    <%= f.text_field :url, :id => "urltextfield", :onkeypress => 'readMetaData()' %>
+    <%= button_tag "Fetch Info",:type => 'button', :onclick => 'fetchInfo()'%>
   </div>
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :id => "titletextfield" %>
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :id => "descriptiontextfield" %>
   </div>
 
   <div class="actions">
